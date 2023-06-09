@@ -25,4 +25,8 @@ df = spark.read \
 df = df.filter(df.repo.isNotNull())
 df.groupBy("repo").count().orderBy("count", ascending=False).show(10)
 
+
+df = df.filter((df.repo == "apache/spark") & df.author.isNotNull())
+top_contributor = df.groupBy("author").count().orderBy("count", ascending=False).first().show()
+
 sleep(1000)

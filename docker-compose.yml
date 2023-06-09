@@ -45,14 +45,3 @@ services:
     volumes:
       - ./app:/app
 
-  pyspark-notebook:
-    image: jupyter/pyspark-notebook:spark-3.3.0
-    restart: always # redémarrage automatique
-    depends_on:
-      - spark-master
-    ports:
-      - 8888:8888
-    environment:
-      - "JUPYTER_TOKEN=token"
-    volumes:
-      - ./app:/home/jovyan/work # ne marche pas sans le work, problème de droits, donc je ne peux pas récupérer directement les notebooks
