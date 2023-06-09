@@ -23,5 +23,5 @@ apk add --update python python-dev gfortran py-pip build-base py-numpy sur le ma
 Puis exécutez le fichier python avec spark-submit
 
 ````bash
-/spark/bin/spark-submit /app/project-spark-q1.py
+/spark/bin/spark-submit /app/project-spark.py
 ````
