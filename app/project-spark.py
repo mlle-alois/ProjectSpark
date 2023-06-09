@@ -22,13 +22,19 @@ df = spark.read \
     .load(full_file, format="csv") \
     .repartition(16)
 
-df = df.filter(df.repo.isNotNull())
-
 # 1. Afficher dans la console les 10 projets Github pour lesquels il y a eu le plus de commit.
-df.groupBy("repo").count().orderBy("count", ascending=False).show(10)
+df.filter(df.repo.isNotNull()) \
+    .groupBy("repo") \
+    .count() \
+    .orderBy("count", ascending=False) \
+    .show(10)
 
 # 2. Afficher dans la console le plus gros contributeur (la personne qui a fait le plus de commit) du projet apache/spark.
-df = df.filter((df.repo == "apache/spark") & df.author.isNotNull())
-top_contributor = df.groupBy("author").count().orderBy("count", ascending=False).first().show()
+top_contributor = df.filter((df.repo == "apache/spark") & df.author.isNotNull()) \
+                    .groupBy("author") \
+                    .count() \
+                    .orderBy("count", ascending=False) \
+                    .first() \
+                    .show()
 
 sleep(1000)
