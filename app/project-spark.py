@@ -23,6 +23,21 @@ df = spark.read \
     .load(full_file, format="csv") \
     .repartition(16)
 
+# 1. Afficher dans la console les 10 projets Github pour lesquels il y a eu le plus de commit.
+df.filter(df.repo.isNotNull()) \
+    .groupBy("repo") \
+    .count() \
+    .orderBy("count", ascending=False) \
+    .show(10)
+
+# 2. Afficher dans la console le plus gros contributeur (la personne qui a fait le plus de commit) du projet apache/spark.
+top_contributor = df.filter((df.repo == "apache/spark") & df.author.isNotNull()) \
+    .groupBy("author") \
+    .count() \
+    .orderBy("count", ascending=False) \
+    .first()
+print("Top contributor: " + top_contributor.author + " (" + str(top_contributor["count"]) + " commits)")
+
 # 3. Afficher dans la console les plus gros contributeurs du projet apache/spark sur les 4 dernières années.
 # Pas de date en dur dans le code. Pour la conversion vous pouvez vous référer à cette documentation :
 # https://spark.apache.org/docs/latest/sql-ref-datetime-pattern.html
@@ -35,4 +50,4 @@ df.filter((df.repo == "apache/spark") & df.author.isNotNull() & df.date.isNotNul
     .orderBy("count", ascending=False) \
     .show()
 
-sleep(1000)
+sleep(2000)
