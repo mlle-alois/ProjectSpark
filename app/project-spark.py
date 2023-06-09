@@ -23,6 +23,8 @@ df = spark.read \
     .repartition(16)
 
 df = df.filter(df.repo.isNotNull())
+
+# 1. Afficher dans la console les 10 projets Github pour lesquels il y a eu le plus de commit.
 df.groupBy("repo").count().orderBy("count", ascending=False).show(10)
 
 
