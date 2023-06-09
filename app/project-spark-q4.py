@@ -28,11 +28,5 @@ df = spark.read \
 # Bonus : A la place d’utiliser une liste de stopwords, vous pouvez utiliser le stopWordsRemover de Spark ML.
 # https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.feature.StopWordsRemover.html
 # TODO
-top_contributor = df.filter((df.repo == "apache/spark") & df.author.isNotNull()) \
-                    .groupBy("author") \
-                    .count() \
-                    .orderBy("count", ascending=False) \
-                    .first()
-print("Top contributor: " + top_contributor.author + " (" + str(top_contributor["count"]) + " commits)")
 
 sleep(1000)

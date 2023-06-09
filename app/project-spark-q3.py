@@ -26,11 +26,5 @@ df = spark.read \
 # Pas de date en dur dans le code😉. Pour la conversion vous pouvez vous référer à cette documentation :
 # https://spark.apache.org/docs/latest/sql-ref-datetime-pattern.html
 # TODO
-top_contributor = df.filter((df.repo == "apache/spark") & df.author.isNotNull()) \
-                    .groupBy("author") \
-                    .count() \
-                    .orderBy("count", ascending=False) \
-                    .first()
-print("Top contributor: " + top_contributor.author + " (" + str(top_contributor["count"]) + " commits)")
 
 sleep(1000)
