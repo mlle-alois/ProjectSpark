@@ -48,9 +48,18 @@ print("Top contributor: " + top_contributor.author + " (" + str(top_contributor[
 # https://spark.apache.org/docs/latest/sql-ref-datetime-pattern.html
 df_with_date = df.withColumn("date", to_date(from_unixtime(unix_timestamp(df.date, "EEE MMM dd HH:mm:ss yyyy Z"))))
 
-four_years_ago = year(current_date()) - 4
+#four_years_ago = year(current_date()) - 4
+
+# Calculer la date d'il y a quatre ans
+four_years_ago = expr("current_date - INTERVAL 4 YEARS")
+
+# Créer un DataFrame contenant cette date et afficher
+df4yo = spark.createDataFrame([(1, )], ["id"])
+df4yo = df4yo.withColumn("Four_years_ago", four_years_ago)
+four_years_ago_new = df4yo.select("Four_years_ago").first()[0]
+
 df_with_date.filter((df_with_date.repo == "apache/spark") & df_with_date.author.isNotNull() & \
-                        df_with_date.date.isNotNull() & (year(df_with_date.date) <= four_years_ago)) \
+                    df_with_date.date.isNotNull() & (df_with_date.date > four_years_ago_new)) \
     .groupBy("author") \
     .count() \
     .orderBy("count", ascending=False) \
