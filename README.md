@@ -14,6 +14,12 @@ Dans un autre éditeur dans le répertoire, allez dans le bash du master node
 docker exec -it spark-master bash
 ````
 
+Ajouter numpy pour pouvoir effectuer la question 4
+
+````bash
+apk add --update python python-dev gfortran py-pip build-base py-numpy sur le master
+````
+
 Puis exécutez le fichier python avec spark-submit
 
 ````bash
