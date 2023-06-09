@@ -27,7 +27,7 @@ df = df.filter(df.repo.isNotNull())
 # 1. Afficher dans la console les 10 projets Github pour lesquels il y a eu le plus de commit.
 df.groupBy("repo").count().orderBy("count", ascending=False).show(10)
 
-
+# 2. Afficher dans la console le plus gros contributeur (la personne qui a fait le plus de commit) du projet apache/spark.
 df = df.filter((df.repo == "apache/spark") & df.author.isNotNull())
 top_contributor = df.groupBy("author").count().orderBy("count", ascending=False).first().show()
 
