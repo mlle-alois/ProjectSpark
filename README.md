@@ -17,5 +17,5 @@ docker exec -it spark-master bash
 Puis exécutez le fichier python avec spark-submit
 
 ````bash
-/spark/bin/spark-submit /app/project-spark.py
+/spark/bin/spark-submit /app/project-spark-q1.py
 ````
