@@ -39,7 +39,7 @@ df = df.filter(df.message.isNotNull())
 words = df.withColumn("words", split("message", "\s+"))
 
 # Ignorer les mots vides (stopwords)
-stopwords_file = "./app/stop_word.txt"
+stopwords_file = "./app/data/stop_word.txt"
 stopwords = spark.read.text(stopwords_file).rdd.map(lambda r: r[0]).collect()
 remover = StopWordsRemover(inputCol="words", outputCol="filtered_words", stopWords=stopwords)
 
